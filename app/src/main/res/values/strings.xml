@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Buszjegy_mobilalkfejl_2024</string>
+    <string name="title_activity_purchase">PurchaseActivity</string>
+    <string name="registration">Regisztráció</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="logout">Kijelentkezés</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="licenses">Igazolványok</string>
+    <string name="purchases">Vásárlásaim</string>
+    <string name="billing_addres">Számlázási cím</string>
+    <string name="profile">Profilom</string>
+</resources>
