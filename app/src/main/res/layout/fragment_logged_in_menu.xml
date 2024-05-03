@@ -61,6 +61,19 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@id/profileCardImage"
                     app:layout_constraintTop_toBottomOf="@id/cardProfileText" />
+
+                <ImageView
+                    android:id="@+id/iosButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toEndOf="@id/cardProfileEmailText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -102,6 +115,19 @@
                     app:layout_constraintStart_toEndOf="@id/billingAdressCardImage"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/iosButtonBilling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toEndOf="@id/billingAdressCardText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -141,6 +167,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@id/purchaseCardImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iosButtonPurchase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toEndOf="@id/purchaseCardText"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

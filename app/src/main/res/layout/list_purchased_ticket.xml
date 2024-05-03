@@ -73,7 +73,7 @@
             <ImageButton
                 android:id="@+id/deletePurchasedTicket"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_below="@id/ticketValid"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -81,7 +81,7 @@
                 android:layout_alignStart="@id/ticketValid"
                 android:src="@drawable/trash"
                 android:layout_centerHorizontal="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/delete_button"
                 android:contentDescription="@string/delete_ticket" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

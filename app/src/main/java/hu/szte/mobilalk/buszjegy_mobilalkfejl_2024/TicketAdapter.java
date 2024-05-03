@@ -25,12 +25,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
     private Context mContext;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private  NotificationHelper mNotification;
 
     public TicketAdapter(Context mContext, ArrayList<Ticket> ticketData){
         this.mContext = mContext;
         this.ticketData = ticketData;
         this.mAuth= FirebaseAuth.getInstance();
         this.mFirestore=FirebaseFirestore.getInstance();
+        this.mNotification = new NotificationHelper(mContext);
     }
 
     @NonNull
@@ -61,6 +63,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
         private TextView ticketDurationText;
         private TextView ticketPrice;
         private Button ticketBuyButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +98,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
                 public void onClick(DialogInterface dialog, int id) {
                     PurchasedTicket purchased = new PurchasedTicket(mAuth.getCurrentUser().getEmail(), data.getCity() ,data.getType(), calculateDate(data),"");
                     mFirestore.collection("purchasedTickets").add(purchased);
+                    mNotification.purchase();
                 }
             });
             builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
