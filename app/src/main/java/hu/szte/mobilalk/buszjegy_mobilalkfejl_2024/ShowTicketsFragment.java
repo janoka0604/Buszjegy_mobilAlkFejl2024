@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,7 +51,7 @@ public class ShowTicketsFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.purchaseTicketRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext() ));
 
-        mTicketAdapter = new TicketAdapter(mTickets);
+        mTicketAdapter = new TicketAdapter(this.getContext(), mTickets);
         mRecyclerView.setAdapter(mTicketAdapter);
 
         querryData();
@@ -59,7 +60,8 @@ public class ShowTicketsFragment extends Fragment {
     }
 
     private void querryData(){
-        mFirestore.collection("tickets").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mQuerydData = mFirestore.collection("tickets");
+        mQuerydData.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -76,6 +78,5 @@ public class ShowTicketsFragment extends Fragment {
         });
 
     }
-
 
 }

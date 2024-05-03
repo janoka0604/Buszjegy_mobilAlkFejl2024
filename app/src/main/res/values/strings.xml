@@ -10,4 +10,13 @@
     <string name="purchases">Vásárlásaim</string>
     <string name="billing_addres">Számlázási cím</string>
     <string name="profile">Profilom</string>
+    <string name="purchase_confirmation_message">Biztosan megszeretnéd vásárolni?</string>
+    <string name="confirm">Igen</string>
+    <string name="decline">Nem</string>
+    <string name="purchase">Vásárlás</string>
+    <string name="purchase_confirmation_message_title">Vásárlás megerősítése</string>
+    <string name="delete_ticket">Jegy törlése</string>
+    <string name="valid_duration">Érvényes</string>
+    <string name="purchase_ticket_delete_message_title">Jegy törlése</string>
+    <string name="purchase_ticket_delete_message">Biztosan ki szeretnéd törölni ezt a jegyet a rendszerből?</string>
 </resources>

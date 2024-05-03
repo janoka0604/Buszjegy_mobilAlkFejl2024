@@ -21,8 +21,12 @@
                 android:id="@+id/ticketBusImage"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/baseline_directions_bus_24"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_below="@id/ticketPlaceName"
+                android:layout_alignTop="@id/ticketPlaceName"
+                android:layout_alignBottom="@id/deletePurchasedTicket"/>
 
             <TextView
                 android:id="@+id/ticketPlaceName"
@@ -44,10 +48,10 @@
                 android:textStyle="italic"/>
 
             <TextView
-                android:id="@+id/ticketDurationText"
+                android:id="@+id/ticketValidationLengthText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Várható lejárat: 2024/05/31"
+                android:text="Érvényes: 2024/05/31"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="15dp"
@@ -55,24 +59,30 @@
                 android:layout_alignParentEnd="true"/>
 
             <TextView
-                android:id="@+id/ticketPrice"
+                android:id="@+id/ticketValid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5800 Ft"
+                android:text="@string/valid_duration"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:textColor="@color/green"
                 android:layout_marginBottom="5dp"
-                android:layout_below="@id/ticketDurationText"
-                android:layout_alignEnd="@id/ticketDurationText"/>
+                android:layout_below="@id/ticketValidationLengthText"
+                android:layout_alignEnd="@id/ticketValidationLengthText"/>
 
-            <Button
-                android:id="@+id/ticketBuyButton"
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/deletePurchasedTicket"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ticketPrice"
-                android:layout_toEndOf="@id/ticketBusImage"
-                android:text="@string/purchase" />
-
+                android:layout_below="@id/ticketValid"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignEnd="@id/ticketValid"
+                android:layout_alignStart="@id/ticketValid"
+                android:src="@drawable/trash"
+                android:layout_centerHorizontal="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_ticket" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>
