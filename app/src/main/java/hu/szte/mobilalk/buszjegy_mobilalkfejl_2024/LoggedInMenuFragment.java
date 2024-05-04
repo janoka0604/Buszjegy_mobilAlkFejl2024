@@ -23,6 +23,7 @@ public class LoggedInMenuFragment extends Fragment {
     private Button logOutButton;
     private TextView email;
     private CardView myProfile;
+    private CardView billingAddress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class LoggedInMenuFragment extends Fragment {
         email = view.findViewById(R.id.cardProfileEmailText);
         email.setText(mAuth.getCurrentUser().getEmail());
         myProfile = view.findViewById(R.id.profileCard);
-;
+        billingAddress = view.findViewById(R.id.billingAdressCard);
         return view;
     }
 
@@ -62,6 +63,16 @@ public class LoggedInMenuFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
                 transaction.replace(R.id.menuFrameLayout, new MyProfileFragment());
+                transaction.commit();
+            }
+        });
+
+        billingAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
+                transaction.replace(R.id.menuFrameLayout, new BillingAddressFragment());
                 transaction.commit();
             }
         });

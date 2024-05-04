@@ -23,4 +23,10 @@
     <string name="ticket_type">Jegy típusa</string>
     <string name="search">Keresés</string>
     <string name="app_logo_img_text">Buszjegy logo</string>
+    <string name="for_name">Vezetéknév</string>
+    <string name="sur_name">Keresztnév</string>
+    <string name="postal_code">Irányítószám</string>
+    <string name="street">Utca</string>
+    <string name="house_number">Házszám</string>
+    <string name="modify">Módosítás</string>
 </resources>

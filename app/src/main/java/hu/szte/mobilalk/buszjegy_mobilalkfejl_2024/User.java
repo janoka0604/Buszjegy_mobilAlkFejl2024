@@ -5,6 +5,7 @@ public class User {
     private String surName;
     private String email;
     private String birthDate;
+    private BillingAddress billingAddress;
 
     public User() {}
 
@@ -13,6 +14,7 @@ public class User {
         this.surName = surName;
         this.email = email;
         this.birthDate = birthDate;
+        this.billingAddress = new BillingAddress();
     }
 
     public String getForeName() {
@@ -45,5 +47,13 @@ public class User {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
     }
 }
