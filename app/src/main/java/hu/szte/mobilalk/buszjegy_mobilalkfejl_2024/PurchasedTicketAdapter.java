@@ -3,12 +3,14 @@ package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,11 +95,17 @@ public class PurchasedTicketAdapter extends RecyclerView.Adapter<PurchasedTicket
                     mFirestore.collection("purchasedTickets").document(documentId).delete();
                     ticketData.remove(position);
                     notifyItemRemoved(position);
+                    Toast toast = Toast.makeText(mContext, "Sikeres törlés!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+
                 }
             });
             builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    // User cancelled the dialog
+                    Toast toast = Toast.makeText(mContext, "Törlés félbeszakítva!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
             });
             AlertDialog dialog = builder.create();

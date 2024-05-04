@@ -19,4 +19,8 @@
     <string name="valid_duration">Érvényes</string>
     <string name="purchase_ticket_delete_message_title">Jegy törlése</string>
     <string name="purchase_ticket_delete_message">Biztosan ki szeretnéd törölni ezt a jegyet a rendszerből?</string>
+    <string name="city">Város</string>
+    <string name="ticket_type">Jegy típusa</string>
+    <string name="search">Keresés</string>
+    <string name="app_logo_img_text">Buszjegy logo</string>
 </resources>

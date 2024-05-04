@@ -22,15 +22,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Filter;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String CHANNEL_ID = "ticket_destroy_channel";
-    private final int NOTIFICATION_ID = 2;
+    private FirebaseFirestore mFirestore;
     private final int PERMISSION = 1;
 
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
-    private NotificationHelper mNotificationHelper;
+    SearchFragment search = new SearchFragment();
 
 
     @Override
@@ -44,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        mNotificationHelper = new NotificationHelper(this);
+        mFirestore = FirebaseFirestore.getInstance();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Vásárlás");
+        getSupportActionBar().setTitle("Keresés");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.ticketFragmentContainer, new ShowTicketsFragment());
+        fragmentTransaction.replace(R.id.ticketFragmentContainer, search);
         fragmentTransaction.commit();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -100,5 +103,68 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSION);
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void search(String city, String type){
+        Query query = mFirestore.collection("tickets");
+
+        if(!city.equalsIgnoreCase("összes")){
+            Log.i("search.debug",city);
+            query = query.whereEqualTo("city",city);
+        }
+        if(!type.equalsIgnoreCase("összes")){
+            Log.i("search.debug",type);
+            query = query.whereEqualTo("type",type);
+        }
+
+        Log.i("search.debug", query.toString());
+        switchToBuyFragment(query);
+    }
+
+    private void switchToBuyFragment(Query query){
+        ShowTicketsFragment fragment = new ShowTicketsFragment(query);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left,
+                R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
+        fragmentTransaction.replace(R.id.ticketFragmentContainer, fragment);
+        fragmentTransaction.addToBackStack(null); // Add fragment transaction to back stack
+        fragmentTransaction.commit();
+
+        getSupportActionBar().setTitle("Vásárlás");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        search.reset();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+            Log.i("back.debug","pressed");
+
+            getSupportActionBar().setTitle("Keresés");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+        } else {
+            Log.i("back.debug","super");
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

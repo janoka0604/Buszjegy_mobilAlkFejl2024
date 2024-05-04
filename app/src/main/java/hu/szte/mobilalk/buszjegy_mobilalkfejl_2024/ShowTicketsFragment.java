@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,9 +31,12 @@ public class ShowTicketsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ArrayList<Ticket> mTickets;
-
-    private CollectionReference mQuerydData;
     private TicketAdapter mTicketAdapter;
+    private Query queryFromMain;
+
+    public ShowTicketsFragment(Query queryFromMain) {
+        this.queryFromMain = queryFromMain;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +64,8 @@ public class ShowTicketsFragment extends Fragment {
     }
 
     private void querryData(){
-        mQuerydData = mFirestore.collection("tickets");
-        mQuerydData.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Log.i("search.debug", queryFromMain.toString());
+        queryFromMain.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

@@ -1,13 +1,16 @@
 package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -82,9 +85,19 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             itemView.findViewById(R.id.ticketBuyButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mAuth!=null){
-
+                    if(mAuth.getCurrentUser()!=null){
                        showDialog(data);
+                    }
+
+                    else{
+                        ((MainActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(mContext, "Nem vagy bejelentkezve!!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 100);
+                                toast.show();
+                            }
+                        });
                     }
                 }
             });
@@ -103,13 +116,16 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             });
             builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    // User cancelled the dialog
+                    Toast toast = Toast.makeText(mContext, "Vásárlás félbeszakítva!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
             });
             AlertDialog dialog = builder.create();
             dialog.show();
         }
     }
+
     private String calculateDate(Ticket ticket){
         Calendar calendar = Calendar.getInstance();
 
