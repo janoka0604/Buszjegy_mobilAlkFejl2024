@@ -147,6 +147,11 @@ private BillingAddress beforeUpdateAddress;
                 document.update("billingAddress.houseNumber", hNumber);
             }
 
+            Toast succesToast = new Toast(getContext());
+            succesToast.setText("Sikeres adat módosítása");
+            succesToast.setDuration(Toast.LENGTH_SHORT);
+            succesToast.show();
+
         }
     }
 

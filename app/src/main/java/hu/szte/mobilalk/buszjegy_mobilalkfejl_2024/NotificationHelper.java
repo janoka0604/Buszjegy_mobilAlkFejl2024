@@ -50,7 +50,7 @@ public class NotificationHelper {
                 .setContentText("Köszönjük a vásárlást!")
                 .setColor(Color.CYAN)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000})
-                .setSmallIcon(R.drawable._714083125784nck2s2b3)
+                .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 

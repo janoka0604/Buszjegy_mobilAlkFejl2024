@@ -7,63 +7,122 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/billingAddressForNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:textStyle="italic|bold"
+            android:text="@string/for_name"
+            />
         <EditText
             android:id="@+id/billingAdressForName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/for_name"
-            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="text" />
+
+        <TextView
+            android:id="@+id/billingAddressSurNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic|bold"
+            android:text="@string/sur_name"
+            />
+
 
         <EditText
             android:id="@+id/billingAdressSurName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/sur_name"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="text" />
+
+        <TextView
+            android:id="@+id/billingAddressPostalCodeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic|bold"
+            android:text="@string/postal_code"
+            />
 
         <EditText
             android:id="@+id/billingAdressPostalCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/postal_code"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="number"
             android:maxLength="5"/>
 
+        <TextView
+            android:id="@+id/billingAddressCityTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic|bold"
+            android:text="@string/city"
+            />
         <EditText
             android:id="@+id/billingAdressCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/city"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/billingAddressStreetTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic|bold"
+            android:text="@string/street"
+            />
 
         <EditText
             android:id="@+id/billingAdressStreet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/street"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/billingAddressHouseNumberTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic|bold"
+            android:text="@string/house_number"
+            />
 
         <EditText
             android:id="@+id/billingAdressHouseNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/house_number"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="number"/>

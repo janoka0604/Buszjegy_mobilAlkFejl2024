@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
     NotLoggedInFragment notLoggedInFragment = new NotLoggedInFragment();
     LoggedInMenuFragment loggedInMenuFragment = new LoggedInMenuFragment();
     Toolbar toolbar;
-    private List<String> transactionBefore = new ArrayList<>();
+    public List<String> transactionBefore = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +164,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    private void setToolbar(String s){
+    public void setToolbar(String s){
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(s);
     }

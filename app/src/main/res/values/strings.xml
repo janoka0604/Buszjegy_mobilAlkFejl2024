@@ -29,4 +29,6 @@
     <string name="street">Utca</string>
     <string name="house_number">Házszám</string>
     <string name="modify">Módosítás</string>
+    <string name="email">Email cím</string>
+    <string name="password">Jelszó</string>
 </resources>

@@ -57,23 +57,18 @@ public class LoggedInMenuFragment extends Fragment {
             }
         });
 
-        myProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
-                transaction.replace(R.id.menuFrameLayout, new MyProfileFragment());
-                transaction.commit();
-            }
-        });
-
         billingAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = ( (MenuActivity) getActivity())
+                        .getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
                 transaction.replace(R.id.menuFrameLayout, new BillingAddressFragment());
+                transaction.addToBackStack(null);
                 transaction.commit();
+                ( (MenuActivity) getActivity()).setToolbar("Számlázási cím");
+                ( (MenuActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ( (MenuActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
             }
         });
 

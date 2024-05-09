@@ -9,7 +9,7 @@
         android:id="@+id/searchImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/logo"
         android:contentDescription="@string/app_logo_img_text" />
 
     <AutoCompleteTextView
