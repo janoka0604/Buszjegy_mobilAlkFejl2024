@@ -1,120 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegisterFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/registerLogo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/logo"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/foreNameTextView"
+            android:contentDescription="@string/app_logo_img_text" />
 
         <TextView
-            android:id="@+id/errorMessageTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/foreNameTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text=""
-            android:textColor="@color/errorColor"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:text="@string/for_name"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerLogo"
+            app:layout_constraintBottom_toTopOf="@id/foreNameEditText"/>
 
         <EditText
             android:id="@+id/foreNameEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:ems="8"
-            android:hint="Keresztnév"
+            android:hint="@string/for_name"
             android:inputType="text"
             android:minHeight="48dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/surNameEditText"
-            app:layout_constraintTop_toBottomOf="@+id/errorMessageTextView" />
+            app:layout_constraintTop_toBottomOf="@id/foreNameTextView"
+            app:layout_constraintBottom_toTopOf="@id/sureNameTextView"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/sureNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sur_name"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/foreNameEditText"
+            app:layout_constraintBottom_toTopOf="@id/surNameEditText"/>
 
         <EditText
             android:id="@+id/surNameEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:ems="8"
-            android:hint="Vezetéknév"
+            android:hint="@string/sur_name"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toStartOf="@+id/foreNameEditText"
-            app:layout_constraintHorizontal_bias="0.51"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorMessageTextView" />
-
-        <EditText
-            android:id="@+id/registerPasswordConfirmEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="18"
-            android:hint="Jelszó megerősítése"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sureNameTextView"
+            app:layout_constraintBottom_toTopOf="@id/registerEmailTextView"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/registerEmailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerPasswordEditText" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/surNameEditText"
+            app:layout_constraintBottom_toTopOf="@id/registerEmailEditText"/>
 
         <EditText
             android:id="@+id/registerEmailEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="18"
-            android:hint="Email cím"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/surNameEditText" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerEmailTextView"
+            app:layout_constraintBottom_toTopOf="@id/registerDateTextView"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/registerDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/birth_date"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerEmailEditText"
+            app:layout_constraintBottom_toTopOf="@id/registerDateText"/>
 
         <EditText
             android:id="@+id/registerDateText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="18"
-            android:hint="Születési év"
+            android:hint="@string/birth_date"
             android:inputType="date"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerEmailEditText" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerDateTextView"
+            app:layout_constraintBottom_toTopOf="@id/registerPasswordTextView"
+            android:importantForAutofill="no" />
 
-        <Button
-            android:id="@+id/registerPageRegisterButton"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/registerPasswordTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="18"
-            android:text="@string/registration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.482"
+            android:text="@string/password"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmEditText" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerDateText"
+            app:layout_constraintBottom_toTopOf="@id/registerPasswordEditText"/>
 
         <EditText
             android:id="@+id/registerPasswordEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="18"
-            android:hint="Jelszó"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerDateText" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerPasswordTextView"
+            app:layout_constraintBottom_toTopOf="@id/registerPasswordConfirmTextView"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:id="@+id/registerPasswordConfirmTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/password_confirm"
+            android:textStyle="italic|bold"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerPasswordEditText"
+            app:layout_constraintBottom_toTopOf="@id/registerPasswordConfirmEditText"/>
+
+        <EditText
+            android:id="@+id/registerPasswordConfirmEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_confirm"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerPasswordConfirmTextView"
+            app:layout_constraintBottom_toTopOf="@id/registerPageRegisterButton"
+            android:importantForAutofill="no" />
+
+
+        <Button
+            android:id="@+id/registerPageRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registration"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerPasswordConfirmEditText"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</ScrollView>

@@ -31,4 +31,6 @@
     <string name="modify">Módosítás</string>
     <string name="email">Email cím</string>
     <string name="password">Jelszó</string>
+    <string name="birth_date">Születési év</string>
+    <string name="password_confirm">Jelszó megerősítése</string>
 </resources>

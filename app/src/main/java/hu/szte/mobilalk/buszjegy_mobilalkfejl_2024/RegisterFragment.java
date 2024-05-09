@@ -1,26 +1,20 @@
 package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,7 +31,6 @@ public class RegisterFragment extends Fragment {
     private EditText birthDateDatePicker;
     private EditText passwordEditText;
     private EditText passwordConfirmEditText;
-    private TextView errorMessageTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +52,6 @@ public class RegisterFragment extends Fragment {
         birthDateDatePicker = view.findViewById(R.id.registerDateText);
         passwordEditText = view.findViewById(R.id.registerPasswordEditText);
         passwordConfirmEditText = view.findViewById(R.id.registerPasswordConfirmEditText);
-        errorMessageTextView = view.findViewById(R.id.errorMessageTextView);
 
         return view;
     }
@@ -80,15 +72,11 @@ public class RegisterFragment extends Fragment {
             registerUser(foreName, surName, email, birthDate, password, confirmPassword);
         });
 
-        view.findViewById(R.id.registerDateText).setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    openDateDialog();
-                }
-                return true;
+        view.findViewById(R.id.registerDateText).setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                openDateDialog();
             }
+            return true;
         });
     }
 
@@ -97,10 +85,12 @@ public class RegisterFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateOfToday);
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
+        int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DATE);
 
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), (view, year1, month1, dayOfMonth) -> birthDateDatePicker.setText(year1 +"/"+ month1 +
+        DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                (view, year1, month1, dayOfMonth) -> birthDateDatePicker
+                        .setText(year1 +"/"+ (month1+1) +
                 "/"+ dayOfMonth), year, month, day);
 
         dialog.show();
@@ -112,24 +102,30 @@ public class RegisterFragment extends Fragment {
 
     private boolean validateDatas(String foreName, String surName, String email, String bthD,
                                   String pw, String pwConfirm){
+        Toast errorToast = new Toast(getContext());
+        errorToast.setDuration(Toast.LENGTH_SHORT);
         if(foreName.isEmpty() || surName.isEmpty() || email.isEmpty() || bthD.isEmpty()
                 || pw.isEmpty() || pwConfirm.isEmpty()){
-            errorMessageTextView.setText("Nincs minden adat kitöltve!");
+            errorToast.setText("Nincs minden adat kitöltve!");
+            errorToast.show();
             return false;
         }
 
         if(!isEmailvalid(email)){
-            errorMessageTextView.setText("Hibás email formátum!");
+            errorToast.setText("Hibás email formátum!");
+            errorToast.show();
             return false;
         }
 
         if(!pw.equals(pwConfirm)){
-            errorMessageTextView.setText("A két jelszó nem egyezik meg!");
+            errorToast.setText("A két jelszó nem egyezik meg!");
+            errorToast.show();
             return false;
         }
 
         if(pw.length() < 6){
-            errorMessageTextView.setText("A jelszó legyen hosszabb, mint 6 karakter!");
+            errorToast.setText("A jelszó legyen hosszabb, mint 6 karakter!");
+            errorToast.show();
             return false;
         }
 
@@ -141,21 +137,23 @@ public class RegisterFragment extends Fragment {
         if(!validateDatas(foreName, surName, email, bthD, pw, pwConfirm)) return;
 
         mAuth.createUserWithEmailAndPassword(email, pw)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Log.i("register.page.succes","Sikeres regisztráció "+mAuth.getCurrentUser().getEmail());
-                            registerUserDatas(foreName, surName, email, bthD);
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                            transaction.replace(R.id.menuFrameLayout, new LoggedInMenuFragment());
-                            transaction.commit();
-                        }
-                        else{
-                            Log.e("register.page.succes",task.getException().getMessage());
-                            errorMessageTextView.setText(task.getException().getMessage());
-                        }
+                .addOnCompleteListener(task -> {
+                    Toast completeToast = new Toast(getContext());
+                    completeToast.setDuration(Toast.LENGTH_SHORT);
+                    if(task.isSuccessful()){
+                        completeToast.setText("Sikeres regisztráció!");
+                        completeToast.show();
+                        Log.i("register.page.succes","Sikeres regisztráció "+mAuth.getCurrentUser().getEmail());
+                        registerUserDatas(foreName, surName, email, bthD);
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                        transaction.replace(R.id.menuFrameLayout, new LoggedInMenuFragment());
+                        transaction.commit();
+                    }
+                    else{
+                        Log.e("register.page.succes",task.getException().getMessage());
+                        completeToast.setText(task.getException().getMessage());
+                        completeToast.show();
                     }
                 });
     }
