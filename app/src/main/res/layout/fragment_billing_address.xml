@@ -24,7 +24,8 @@
             android:hint="@string/for_name"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:inputType="text" />
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/billingAddressSurNameTextView"
@@ -45,7 +46,8 @@
             android:hint="@string/sur_name"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:inputType="text" />
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/billingAddressPostalCodeTextView"
@@ -66,7 +68,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:inputType="number"
-            android:maxLength="5"/>
+            android:maxLength="5"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/billingAddressCityTextView"
@@ -85,7 +88,8 @@
             android:hint="@string/city"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/billingAddressStreetTextView"
@@ -105,7 +109,8 @@
             android:hint="@string/street"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/billingAddressHouseNumberTextView"
@@ -125,7 +130,8 @@
             android:hint="@string/house_number"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/billingAdressModifyButton"

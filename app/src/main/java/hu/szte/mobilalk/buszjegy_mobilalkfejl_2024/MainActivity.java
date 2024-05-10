@@ -1,7 +1,6 @@
 package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,17 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         mFirestore = FirebaseFirestore.getInstance();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Keresés");
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -64,31 +58,28 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setPadding(0, 0, 0, 0);
         bottomNavigationView.setSelectedItemId(R.id.naviPurchase);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent = new Intent();
-                if (menuItem.getItemId() == R.id.naviMenu) {
-                    intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviTicket) {
-                    intent = new Intent(getApplicationContext(), TicketActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviPurchase) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            Intent intent;
+            if (menuItem.getItemId() == R.id.naviMenu) {
+                intent = new Intent(getApplicationContext(), MenuActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviTicket) {
+                intent = new Intent(getApplicationContext(), TicketActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviPurchase) {
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
             }
+            return false;
         });
 
     }
@@ -159,12 +150,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

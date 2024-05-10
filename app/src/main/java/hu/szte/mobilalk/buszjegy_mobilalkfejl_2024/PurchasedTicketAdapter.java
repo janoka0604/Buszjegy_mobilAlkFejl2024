@@ -2,12 +2,10 @@ package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -24,13 +21,11 @@ public class PurchasedTicketAdapter extends RecyclerView.Adapter<PurchasedTicket
 
     private ArrayList<PurchasedTicket> ticketData;
     private Context mContext;
-    private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
     public PurchasedTicketAdapter(Context mContext, ArrayList<PurchasedTicket> ticketData){
         this.mContext = mContext;
         this.ticketData = ticketData;
-        this.mAuth = FirebaseAuth.getInstance();
         this.mFirestore = FirebaseFirestore.getInstance();
     }
 
@@ -78,35 +73,26 @@ public class PurchasedTicketAdapter extends RecyclerView.Adapter<PurchasedTicket
             ticketValidationLength.setText("Érvényesség: " + data.getValidDate());
             ticketValid.setText("Érvényes");
 
-            deletePurchasedTicket.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showDialog(data._getDocumentID(), getAdapterPosition());
-                }
-            });
+            deletePurchasedTicket.setOnClickListener(v -> showDialog(data._getDocumentID(), getAdapterPosition()));
         }
 
         public void showDialog(String documentId, final int position) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle(R.string.purchase_ticket_delete_message_title);
             builder.setMessage(R.string.purchase_ticket_delete_message);
-            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    mFirestore.collection("purchasedTickets").document(documentId).delete();
-                    ticketData.remove(position);
-                    notifyItemRemoved(position);
-                    Toast toast = Toast.makeText(mContext, "Sikeres törlés!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
+            builder.setPositiveButton(R.string.confirm, (dialog, id) -> {
+                mFirestore.collection("purchasedTickets").document(documentId).delete();
+                ticketData.remove(position);
+                notifyItemRemoved(position);
+                Toast toast = Toast.makeText(mContext, "Sikeres törlés!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
 
-                }
             });
-            builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Toast toast = Toast.makeText(mContext, "Törlés félbeszakítva!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                }
+            builder.setNegativeButton(R.string.decline, (dialog, id) -> {
+                Toast toast = Toast.makeText(mContext, "Törlés félbeszakítva!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             });
             AlertDialog dialog = builder.create();
             dialog.show();

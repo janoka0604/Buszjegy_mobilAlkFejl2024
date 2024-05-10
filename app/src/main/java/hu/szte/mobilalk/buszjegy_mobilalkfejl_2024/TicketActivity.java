@@ -3,12 +3,10 @@ package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -17,14 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -67,31 +61,28 @@ public class TicketActivity extends AppCompatActivity {
         bottomNavigationView.setPadding(0,0,0,0);
         bottomNavigationView.setSelectedItemId(R.id.naviTicket);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent;
-                if(menuItem.getItemId() == R.id.naviMenu){
-                    intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviTicket) {
-                    intent = new Intent(getApplicationContext(), TicketActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviPurchase) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            Intent intent;
+            if(menuItem.getItemId() == R.id.naviMenu){
+                intent = new Intent(getApplicationContext(), MenuActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviTicket) {
+                intent = new Intent(getApplicationContext(), TicketActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviPurchase) {
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
             }
+            return false;
         });
 
         createTicketView();
@@ -112,26 +103,23 @@ public class TicketActivity extends AppCompatActivity {
             noTicketImage.setVisibility(View.INVISIBLE);
             mFirestore
                     .collection("purchasedTickets")
-                    .whereEqualTo("userEmail", mAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.i("getting.id.test", document.getId());
-                            Map<String, Object> ticketData = document.getData();
-                            mPurchasedTickets.add(new PurchasedTicket(
-                                    (String) ticketData.get("userEmail"),
-                                    (String) ticketData.get("city"),
-                                    (String) ticketData.get("type"),
-                                    (String) ticketData.get("validDate"),
-                                    document.getId()));
-                            Log.i("getting.data", ticketData.toString());
-                            mPurchasedTicketAdapter.notifyDataSetChanged();
+                    .whereEqualTo("userEmail", mAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.i("getting.id.test", document.getId());
+                                Map<String, Object> ticketData = document.getData();
+                                mPurchasedTickets.add(new PurchasedTicket(
+                                        (String) ticketData.get("userEmail"),
+                                        (String) ticketData.get("city"),
+                                        (String) ticketData.get("type"),
+                                        (String) ticketData.get("validDate"),
+                                        document.getId()));
+                                Log.i("getting.data", ticketData.toString());
+                                mPurchasedTicketAdapter.notifyDataSetChanged();
+                            }
                         }
-                    }
-                    if(mPurchasedTickets.isEmpty()) noTicketImage.setVisibility(View.VISIBLE);
-                }
-            });
+                        if(mPurchasedTickets.isEmpty()) noTicketImage.setVisibility(View.VISIBLE);
+                    });
 
         }
     }

@@ -1,20 +1,15 @@
 package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,7 +60,6 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
         private TextView ticketDurationTime;
         private TextView ticketDurationText;
         private TextView ticketPrice;
-        private Button ticketBuyButton;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -82,23 +76,17 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             ticketDurationTime.setText(data.getType() + " jegy " + data.getCity());
             ticketDurationText.setText("Várható lejárati idő: " + calculateDate(data));
             ticketPrice.setText(data.getPrice() + " Ft");
-            itemView.findViewById(R.id.ticketBuyButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mAuth.getCurrentUser()!=null){
-                       showDialog(data);
-                    }
+            itemView.findViewById(R.id.ticketBuyButton).setOnClickListener(v -> {
+                if(mAuth.getCurrentUser()!=null){
+                   showDialog(data);
+                }
 
-                    else{
-                        ((MainActivity) mContext).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast toast = Toast.makeText(mContext, "Nem vagy bejelentkezve!!", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 100);
-                                toast.show();
-                            }
-                        });
-                    }
+                else{
+                    ((MainActivity) mContext).runOnUiThread(() -> {
+                        Toast toast = Toast.makeText(mContext, "Nem vagy bejelentkezve!!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 100);
+                        toast.show();
+                    });
                 }
             });
 
@@ -107,19 +95,15 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle(R.string.purchase_confirmation_message_title);
             builder.setMessage(R.string.purchase_confirmation_message);
-            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    PurchasedTicket purchased = new PurchasedTicket(mAuth.getCurrentUser().getEmail(), data.getCity() ,data.getType(), calculateDate(data),"");
-                    mFirestore.collection("purchasedTickets").add(purchased);
-                    mNotification.purchase();
-                }
+            builder.setPositiveButton(R.string.confirm, (dialog, id) -> {
+                PurchasedTicket purchased = new PurchasedTicket(mAuth.getCurrentUser().getEmail(), data.getCity() ,data.getType(), calculateDate(data),"");
+                mFirestore.collection("purchasedTickets").add(purchased);
+                mNotification.purchase();
             });
-            builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Toast toast = Toast.makeText(mContext, "Vásárlás félbeszakítva!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                }
+            builder.setNegativeButton(R.string.decline, (dialog, id) -> {
+                Toast toast = Toast.makeText(mContext, "Vásárlás félbeszakítva!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             });
             AlertDialog dialog = builder.create();
             dialog.show();

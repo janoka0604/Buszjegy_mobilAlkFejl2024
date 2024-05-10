@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Vibrator;
 
 import androidx.core.app.NotificationCompat;
 
@@ -15,8 +14,8 @@ import androidx.core.app.NotificationCompat;
 public class NotificationHelper {
     private static final String CHANNEL_ID = "ticket_destroy_channel";
     private final int NOTIFICATION_ID_PURCHASE = 200;
-    private NotificationManager mNotifyManager;
-    private Context mContext;
+    private final NotificationManager mNotifyManager;
+    private final Context mContext;
 
 
     public NotificationHelper(Context context) {

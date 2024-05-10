@@ -5,26 +5,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.collections.ArrayDeque;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -58,31 +52,28 @@ public class MenuActivity extends AppCompatActivity {
         bottomNavigationView.setPadding(0,0,0,0);
         bottomNavigationView.setSelectedItemId(R.id.naviMenu);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent;
-                if(menuItem.getItemId() == R.id.naviMenu){
-                    intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviTicket) {
-                    intent = new Intent(getApplicationContext(), TicketActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.naviPurchase) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                    Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            Intent intent;
+            if(menuItem.getItemId() == R.id.naviMenu){
+                intent = new Intent(getApplicationContext(), MenuActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviTicket) {
+                intent = new Intent(getApplicationContext(), TicketActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Ticket");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (menuItem.getItemId() == R.id.naviPurchase) {
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Purchase");
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
             }
+            return false;
         });
     }
 
@@ -124,13 +115,11 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

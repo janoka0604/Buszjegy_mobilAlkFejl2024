@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
                 succesToast.setText("Sikeres bejelentkezés!");
                 succesToast.setDuration(Toast.LENGTH_SHORT);
                 succesToast.show();
-                FragmentTransaction transaction = ((MenuActivity) requireActivity()).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 transaction.replace(R.id.menuFrameLayout, new LoggedInMenuFragment());
                 transaction.commit();

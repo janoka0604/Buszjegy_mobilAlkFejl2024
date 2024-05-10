@@ -34,4 +34,12 @@
     <string name="birth_date">Születési év</string>
     <string name="password_confirm">Jelszó megerősítése</string>
     <string name="no_tickets_image">no_tickets_image</string>
+    <string name="place_holder">Place Holder</string>
+    <string name="id_card_image">ID_card_image</string>
+    <string name="wallet_image">wallet_image</string>
+    <string name="ios_next_button_image">ios_next_button_image</string>
+    <string name="bill_image">bill_image</string>
+    <string name="profile_image">profile_image</string>
+    <string name="test_email">test@email.com</string>
+    <string name="bus_image">bus_image</string>
 </resources>
