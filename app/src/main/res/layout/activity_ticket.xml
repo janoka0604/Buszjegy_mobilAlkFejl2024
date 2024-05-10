@@ -17,14 +17,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.appcompat.widget.Toolbar>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <ImageView
+            android:id="@+id/ticketNoTicket"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/no_tickets"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/no_tickets_image" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/purchaseTicketRecyclerView"

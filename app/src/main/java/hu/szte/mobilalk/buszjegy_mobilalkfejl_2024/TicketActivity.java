@@ -1,16 +1,14 @@
 package hu.szte.mobilalk.buszjegy_mobilalkfejl_2024;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -24,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,12 +32,11 @@ import java.util.Map;
 public class TicketActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
-    private RecyclerView mRecyclerView;
     private PurchasedTicketAdapter mPurchasedTicketAdapter;
+    private ImageView noTicketImage;
 
     private ArrayList<PurchasedTicket> mPurchasedTickets;
 
-    private CollectionReference mQuerydData;
 
     private FirebaseFirestore mFirestore;
     private FirebaseAuth mAuth;
@@ -64,6 +60,8 @@ public class TicketActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Jegyeim");
 
+        noTicketImage = findViewById(R.id.ticketNoTicket);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnApplyWindowInsetsListener(null);
         bottomNavigationView.setPadding(0,0,0,0);
@@ -72,7 +70,7 @@ public class TicketActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent = new Intent();
+                Intent intent;
                 if(menuItem.getItemId() == R.id.naviMenu){
                     intent = new Intent(getApplicationContext(), MenuActivity.class);
                     Log.i("bottomNavigationView.testing.v1", "onNavigationItemSelected: Menu");
@@ -102,7 +100,7 @@ public class TicketActivity extends AppCompatActivity {
     }
 
     private void createTicketView(){
-        mRecyclerView = findViewById(R.id.purchaseTicketRecyclerView);
+        RecyclerView mRecyclerView = findViewById(R.id.purchaseTicketRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mPurchasedTicketAdapter = new PurchasedTicketAdapter(this, mPurchasedTickets);
@@ -111,28 +109,30 @@ public class TicketActivity extends AppCompatActivity {
 
     private void querryData() {
         if(mAuth.getCurrentUser()!=null){
+            noTicketImage.setVisibility(View.INVISIBLE);
             mFirestore
                     .collection("purchasedTickets")
                     .whereEqualTo("userEmail", mAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot document : task.getResult()){
+                    if(task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.i("getting.id.test", document.getId());
-                            Map<String,Object> ticketData = document.getData();
-
+                            Map<String, Object> ticketData = document.getData();
                             mPurchasedTickets.add(new PurchasedTicket(
-                                    (String)ticketData.get("userEmail"),
-                                    (String)ticketData.get("city"),
-                                    (String)ticketData.get("type"),
-                                    (String)ticketData.get("validDate"),
+                                    (String) ticketData.get("userEmail"),
+                                    (String) ticketData.get("city"),
+                                    (String) ticketData.get("type"),
+                                    (String) ticketData.get("validDate"),
                                     document.getId()));
-                            Log.i("getting.data",ticketData.toString());
+                            Log.i("getting.data", ticketData.toString());
                             mPurchasedTicketAdapter.notifyDataSetChanged();
                         }
                     }
+                    if(mPurchasedTickets.isEmpty()) noTicketImage.setVisibility(View.VISIBLE);
                 }
             });
+
         }
     }
 }
